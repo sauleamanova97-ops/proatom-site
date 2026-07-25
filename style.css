@@ -9,11 +9,11 @@
   --amber:     #E8A324;   /* logo amber — accent, tags, links */
   --amber-dim: #C98A17;   /* amber hover/active */
   --steel:     #5C7A94;   /* muted blue-grey — meta text, secondary accent */
-  --paper:     #F6F4EE;   /* warm off-white page background */
-  --paper-2:   #EFEBE1;   /* card / section background, one step darker */
+  --paper:     #FFFFFF;   /* page background — white */
+  --paper-2:   #F1F2F4;   /* card / section background, one step off white */
   --ink:       #212B36;   /* body text */
   --ink-soft:  #4B5563;   /* secondary body text */
-  --line:      #DDD6C6;   /* hairline borders/dividers */
+  --line:      #E3E5E9;   /* hairline borders/dividers */
   --white:     #FFFFFF;
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;

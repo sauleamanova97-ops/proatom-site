@@ -46,45 +46,28 @@
 </div>
 
 <main>
-  <section class="hero">
+  <!--
+    Главный блок и список "Также читают" заполняются автоматически скриптом ниже
+    (в самом низу страницы), на основе первых новостей из ленты .feed.
+    Ничего не нужно редактировать вручную — просто следи, чтобы новые посты
+    от бота или добавленные вручную появлялись в начале <div class="feed">.
+  -->
+  <section class="hero" id="hero-section" style="display:none;">
     <div class="wrap hero-grid">
 
-      <a class="hero-card" href="#post-7">
-        <img src="assets/tokayev-aes.jpg" alt="Касым-Жомарт Токаев">
+      <a class="hero-card" id="hero-card" href="#">
+        <img id="hero-img" src="" alt="">
         <div class="overlay">
-          <div class="eyebrow">Казахстан</div>
-          <h1>Токаев заявил о завершении полевых работ на месте строительства АЭС</h1>
-          <p class="excerpt">Президент сообщил о ходе подготовки площадки у озера Балхаш на встрече с Владимиром Путиным в рамках Форума межрегионального сотрудничества России и Казахстана.</p>
-          <div class="meta"><span>25 июля 2026</span><span class="dot">·</span><span>Казахстан</span></div>
+          <div class="eyebrow" id="hero-eyebrow"></div>
+          <h1 id="hero-title"></h1>
+          <p class="excerpt" id="hero-excerpt"></p>
+          <div class="meta"><span id="hero-date"></span></div>
         </div>
       </a>
 
       <div class="side-list">
         <h3>Также читают</h3>
-
-        <a class="side-item" href="#post-1">
-          <img src="assets/hero-reactor.svg" alt="">
-          <div>
-            <div class="title">Строительство АЭС Балхаш начнётся в 2027 году: что известно на сегодня</div>
-            <div class="meta"><span>24 июля 2026</span></div>
-          </div>
-        </a>
-
-        <a class="side-item" href="#post-2">
-          <img src="assets/card-geology.svg" alt="">
-          <div>
-            <div class="title">Вторая АЭС может появиться в Жамбылском районе Алматинской области</div>
-            <div class="meta"><span>24 июля 2026</span></div>
-          </div>
-        </a>
-
-        <a class="side-item" href="#post-3">
-          <img src="assets/card-chart.svg" alt="">
-          <div>
-            <div class="title">Казатомпром опубликовал производственные показатели за полугодие</div>
-            <div class="meta"><span>23 июля 2026</span></div>
-          </div>
-        </a>
+        <div id="side-list-items"></div>
       </div>
 
     </div>
@@ -94,187 +77,14 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Лента новостей</h2>
-        <span class="count">Обновляется вручную из Telegram-канала @nuclearkz</span>
+        <span class="count">Обновляется автоматически из Telegram-канала @nuclearkz</span>
       </div>
 
-      <div class="feed">
+      <div class="feed" id="feed">
         <!-- NEW-POSTS-INSERT-HERE -->
-        <article class="post" id="auto-499926029">
-          <div class="post-media"><img src="assets/card-document.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">атомнаяэнергетика</span><span class="post-tag">АЭС</span></div>
-            <h3><a href="#auto-499926029">Запорожская АЭС столкнулась с перебоями водоснабжения из-за боевых действий</a></h3>
-            <p class="post-excerpt">В результате боевых действий, которые привели к повреждению водопровода, Запорожская атомная электростанция (ЗАЭС) и близлежащий город Энергодар остались без достаточного водоснабжения. Об этом сообщило Международное…</p>
-            <p class="post-full">В результате боевых действий, которые привели к повреждению водопровода, Запорожская атомная электростанция (ЗАЭС) и близлежащий город Энергодар остались без достаточного водоснабжения. Об этом сообщило Международное агентство по атомной энергии.
-
-Вода необходима для охлаждения реакторов ЗАЭС и обеспечения других критически важных функций безопасности.
-
-Представители МАГАТЭ призвали стороны конфликта обеспечить бесперебойную подачу воды на станцию.
-
-Источник: Reuters
-https://www.reuters.com/business/energy/military-activity-hits-water-supply-zaporizhzhia-nuclear-plant-nearby-town-iaea-2026-07-23/</p>
-            <div class="meta"><span>25 июля 2026</span></div>
-            <button class="read-more" data-target="auto-499926029">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="auto-499926027">
-          <div class="post-media"><img src="assets/tg-499926027-0.jpg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">атомнаяэнергетика</span><span class="post-tag">АЭС</span></div>
-            <h3><a href="#auto-499926027">Касым-Жомарт Токаев заявил о завершении полевых работ на месте строительства АЭС</a></h3>
-            <p class="post-excerpt">«Я не могу не отметить проект строительства первой атомной электростанции. Мне доложили, что полевые работы на месте в районе озера Балхаш завершаются» - сказал Токаев на встрече 25 июля с главой РФ Владимиром Путиным,…</p>
-            <p class="post-full">«Я не могу не отметить проект строительства первой атомной электростанции. Мне доложили, что полевые работы на месте в районе озера Балхаш завершаются» - сказал Токаев на встрече 25 июля с главой РФ Владимиром Путиным, которая состоялась в рамках XXII Форума межрегионального сотрудничества России и Казахстана с участием глав государств.
-
-Он уточнил, что проектная работа связана не только с производством новой энергии, но с решением кадрового вопроса. «Это проект, который сблизит наше государство и самое главное, народы наших стран» - заключил Токаев.  
-
-Источник: The World Inform
-https://worldinform.ru/articles/id-tokaev-zajavil-o-zavershenii-polevyh-rabot-na-meste-stroitelstva-aes.html</p>
-            <div class="meta"><span>25 июля 2026</span></div>
-            <button class="read-more" data-target="auto-499926027">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="auto-499926024">
-          <div class="post-media"><img src="assets/tg-499926024-0.jpg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">атомнаяэнергетика</span><span class="post-tag">АЭС</span></div>
-            <h3><a href="#auto-499926024">⚛️ Девять общин в штате Иллинойс, США, выразили интерес к строительству атомных объектов</a></h3>
-            <p class="post-excerpt">Они подали заявки на строительство. Среди них города Диксон, Моррис, Рок-Фоллс, а также округа Керролл, Эдгар, Генри, Стиллман, Уайтсайд и Уилл.
-
-Эта инициатива связана с недавним изменением законодательства штата,…</p>
-            <p class="post-full">Они подали заявки на строительство. Среди них города Диксон, Моррис, Рок-Фоллс, а также округа Керролл, Эдгар, Генри, Стиллман, Уайтсайд и Уилл.
-
-Эта инициатива связана с недавним изменением законодательства штата, которое отменило мораторий на строительство новых атомных электростанций, действовавший с 1987 года.
-
-Теперь в Иллинойсе разрешено возводить АЭС мощностью до 300 МВт.
-
-Источник: Capitol News Illinois
-https://capitolnewsillinois.com/news/these-9-illinois-communities-say-theyre-interested-in-new-nuclear-facilities/</p>
-            <div class="meta"><span>25 июля 2026</span></div>
-            <button class="read-more" data-target="auto-499926024">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="auto-499926023">
-          <div class="post-media"><img src="assets/tg-499926023-0.jpg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">атомнаяэнергетика</span><span class="post-tag">АЭС</span></div>
-            <h3><a href="#auto-499926023">Казахстан и Росатом обсудили кадровую подготовку для АЭС «Балхаш»</a></h3>
-            <p class="post-excerpt">Стороны планируют разработать страновой план по подготовке кадров, который определит потребности проекта в специалистах.
-
-Особое внимание уделили развитию Алматинского филиала НИЯУ «МИФИ» и Консорциума опорных вузов.…</p>
-            <p class="post-full">Стороны планируют разработать страновой план по подготовке кадров, который определит потребности проекта в специалистах.
-
-Особое внимание уделили развитию Алматинского филиала НИЯУ «МИФИ» и Консорциума опорных вузов. Совместная работа также включает формирование заказа на подготовку специалистов по программам высшего и среднего профессионального образования, повышение квалификации преподавателей и организацию дополнительного профессионального образования для сотрудников казахстанских атомных компаний.
-
-Источник: Energyland.info
-https://energyland.info/news-show-tek-atom-285385</p>
-            <div class="meta"><span>25 июля 2026</span></div>
-            <button class="read-more" data-target="auto-499926023">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-7">
-          <div class="post-media"><img src="assets/tokayev-aes.jpg" alt="Касым-Жомарт Токаев"></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Казахстан</span><span class="post-tag">АЭС</span></div>
-            <h3><a href="#post-7">Токаев заявил о завершении полевых работ на месте строительства АЭС</a></h3>
-            <p class="post-excerpt">Президент сообщил о ходе подготовки площадки у озера Балхаш на встрече с Владимиром Путиным в рамках Форума межрегионального сотрудничества России и Казахстана.</p>
-            <p class="post-full">«Я не могу не отметить проект строительства первой атомной электростанции. Мне доложили, что полевые работы на месте в районе озера Балхаш завершаются», — сказал Токаев на встрече 25 июля с главой РФ Владимиром Путиным, которая состоялась в рамках XXII Форума межрегионального сотрудничества России и Казахстана с участием глав государств.
-
-Он уточнил, что проектная работа связана не только с производством новой энергии, но и с решением кадрового вопроса. «Это проект, который сблизит наше государство и, самое главное, народы наших стран», — заключил Токаев.
-
-Источник: The World Inform</p>
-            <div class="meta"><span>25 июля 2026</span><span class="dot">·</span><span>2 мин чтения</span></div>
-            <button class="read-more" data-target="post-7">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-1">
-          <div class="post-media"><img src="assets/hero-reactor.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Казахстан</span><span class="post-tag">Строительство</span></div>
-            <h3><a href="#post-1">Строительство АЭС Балхаш начнётся в 2027 году: что известно на сегодня</a></h3>
-            <p class="post-excerpt">Росатом выступит партнёром проекта у посёлка Улькен в Алматинской области. Разбираем сроки, мощность и статус подготовительных работ.</p>
-            <p class="post-full">Площадка будущей станции расположена на южном берегу озера Балхаш, рядом с посёлком Улькен. Проект реализуется с участием Росатома, который выступит поставщиком реакторной технологии. Начало строительства запланировано на 2027 год — этому предшествуют инженерные изыскания, экологическая экспертиза и согласование финальной конфигурации энергоблоков.
-
-Станция должна закрыть растущий дефицит мощности в южной энергозоне Казахстана, где сосредоточена значительная часть промышленного и населённого потребления электроэнергии страны.</p>
-            <div class="meta"><span>24 июля 2026</span><span class="dot">·</span><span>5 мин чтения</span></div>
-            <button class="read-more" data-target="post-1">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-2">
-          <div class="post-media"><img src="assets/card-geology.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Казахстан</span><span class="post-tag">Планы</span></div>
-            <h3><a href="#post-2">Вторая АЭС может появиться в Жамбылском районе Алматинской области</a></h3>
-            <p class="post-excerpt">Рассматривается площадка для второй атомной станции страны — дополнительно к проекту у Улькена.</p>
-            <p class="post-full">Помимо станции у Улькена, власти рассматривают Жамбылский район Алматинской области как возможную площадку для второй АЭС Казахстана. Решение о конкретной локации, мощности и партнёре по строительству пока не объявлено — идёт этап предварительной оценки.
-
-Появление второго проекта отражает более широкую стратегию: покрыть дефицит мощности не одной станцией, а распределённой генерацией в нескольких регионах.</p>
-            <div class="meta"><span>24 июля 2026</span><span class="dot">·</span><span>3 мин чтения</span></div>
-            <button class="read-more" data-target="post-2">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-3">
-          <div class="post-media"><img src="assets/card-chart.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Уран</span><span class="post-tag">Экономика</span></div>
-            <h3><a href="#post-3">Казатомпром опубликовал производственные показатели за полугодие</a></h3>
-            <p class="post-excerpt">Компания подтвердила план по добыче на текущий год и прокомментировала динамику себестоимости.</p>
-            <p class="post-full">Казатомпром отчитался о ходе выполнения производственного плана за первые шесть месяцев года. Компания подтвердила ориентиры по объёму добычи урана, заложенные в годовом прогнозе, и отметила изменение себестоимости на фоне колебаний цен на серную кислоту и другие реагенты, используемые при подземном скважинном выщелачивании.
-
-Полная отчётность с разбивкой по месторождениям будет опубликована позже в этом году.</p>
-            <div class="meta"><span>23 июля 2026</span><span class="dot">·</span><span>4 мин чтения</span></div>
-            <button class="read-more" data-target="post-3">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-4">
-          <div class="post-media"><img src="assets/card-orbit.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Мир</span><span class="post-tag">МАГАТЭ</span></div>
-            <h3><a href="#post-4">МАГАТЭ обновило прогноз по вводу новых энергоблоков до 2030 года</a></h3>
-            <p class="post-excerpt">Агентство пересмотрело оценку темпов строительства новых реакторов в Азии и на Ближнем Востоке.</p>
-            <p class="post-full">В обновлённом прогнозе МАГАТЭ отмечает ускорение темпов строительства реакторов в Азии — прежде всего в Китае и Индии, а также рост интереса к атомной энергетике на Ближнем Востоке. Пересмотр связан с изменением инвестиционных решений последних двух лет и удешевлением стандартизированных проектов реакторов.
-
-Прогноз по-прежнему делится на базовый и оптимистичный сценарии, различающиеся темпами ввода новых мощностей после 2030 года.</p>
-            <div class="meta"><span>22 июля 2026</span><span class="dot">·</span><span>3 мин чтения</span></div>
-            <button class="read-more" data-target="post-4">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-5">
-          <div class="post-media"><img src="assets/card-document.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Соглашения</span><span class="post-tag">Россия</span></div>
-            <h3><a href="#post-5">Казахстан и Россия обсудили условия сотрудничества по топливному циклу</a></h3>
-            <p class="post-excerpt">Стороны рассматривают расширение сотрудничества за пределы поставки оборудования для АЭС Балхаш.</p>
-            <p class="post-full">На очередной встрече профильных ведомств обсуждались вопросы, выходящие за рамки строительства станции у Улькена: возможности сотрудничества по обращению с отработавшим ядерным топливом и локализации части производственной цепочки на территории Казахстана.
-
-Конкретные договорённости пока не оформлены в виде подписанных документов — стороны договорились продолжить консультации.</p>
-            <div class="meta"><span>21 июля 2026</span><span class="dot">·</span><span>3 мин чтения</span></div>
-            <button class="read-more" data-target="post-5">Читать полностью →</button>
-          </div>
-        </article>
-
-        <article class="post" id="post-6">
-          <div class="post-media"><img src="assets/card-reactor.svg" alt=""></div>
-          <div class="post-body">
-            <div class="post-tags"><span class="post-tag">Технологии</span><span class="post-tag">Мир</span></div>
-            <h3><a href="#post-6">Малые модульные реакторы: где строятся первые пилотные блоки</a></h3>
-            <p class="post-excerpt">Обзор проектов ММР в США, Канаде и Китае — какие уже вышли на этап строительства.</p>
-            <p class="post-full">Технология малых модульных реакторов (ММР) переходит от проектной стадии к строительству первых пилотных блоков. В Канаде продолжается сооружение реактора на площадке Дарлингтон, в Китае завершены пусконаладочные работы на демонстрационном блоке, в США несколько проектов проходят лицензирование в Комиссии по ядерному регулированию.
-
-Главный аргумент в пользу ММР — короткий цикл строительства и возможность серийного производства компонентов на заводе, а не на площадке станции.</p>
-            <div class="meta"><span>20 июля 2026</span><span class="dot">·</span><span>4 мин чтения</span></div>
-            <button class="read-more" data-target="post-6">Читать полностью →</button>
-          </div>
-        </article>
-
+        <p id="empty-feed-msg" style="color:var(--ink-soft); padding:20px 0;">
+          Здесь появятся новости после публикации в Telegram-канале @nuclearkz.
+        </p>
       </div>
     </div>
   </section>
@@ -293,17 +103,72 @@ https://energyland.info/news-show-tek-atom-285385</p>
 </footer>
 
 <script>
-document.querySelectorAll('.read-more').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var id = btn.getAttribute('data-target');
-    var article = document.getElementById(id);
-    var excerpt = article.querySelector('.post-excerpt');
-    var full = article.querySelector('.post-full');
-    var open = full.classList.toggle('open');
-    excerpt.classList.toggle('hidden', open);
-    btn.textContent = open ? 'Свернуть ↑' : 'Читать полностью →';
-  });
+// "Читать полностью" — разворачивает/сворачивает полный текст поста
+document.addEventListener('click', function(e){
+  if (!e.target.classList.contains('read-more')) return;
+  var id = e.target.getAttribute('data-target');
+  var article = document.getElementById(id);
+  var excerpt = article.querySelector('.post-excerpt');
+  var full = article.querySelector('.post-full');
+  var open = full.classList.toggle('open');
+  excerpt.classList.toggle('hidden', open);
+  e.target.textContent = open ? 'Свернуть ↑' : 'Читать полностью →';
 });
+
+// Автозаполнение главного блока и "Также читают" самыми свежими постами из ленты
+(function(){
+  var posts = Array.prototype.slice.call(document.querySelectorAll('#feed .post'));
+  var emptyMsg = document.getElementById('empty-feed-msg');
+  if (posts.length === 0) return; // сообщение "Здесь появятся новости..." уже показано
+
+  if (emptyMsg) emptyMsg.style.display = 'none';
+
+  var top = posts[0];
+  var topImg = top.querySelector('.post-media img');
+  var topTag = top.querySelector('.post-tag');
+  var topLink = top.querySelector('h3 a');
+  var topExcerpt = top.querySelector('.post-excerpt');
+  var topDate = top.querySelector('.meta span');
+
+  document.getElementById('hero-img').src = topImg ? topImg.getAttribute('src') : '';
+  document.getElementById('hero-eyebrow').textContent = topTag ? topTag.textContent : 'Новости';
+  document.getElementById('hero-title').textContent = topLink ? topLink.textContent : '';
+  document.getElementById('hero-card').setAttribute('href', '#' + top.id);
+  document.getElementById('hero-excerpt').textContent = topExcerpt ? topExcerpt.textContent : '';
+  document.getElementById('hero-date').textContent = topDate ? topDate.textContent : '';
+  document.getElementById('hero-section').style.display = '';
+
+  var sideContainer = document.getElementById('side-list-items');
+  posts.slice(1, 4).forEach(function(post){
+    var img = post.querySelector('.post-media img');
+    var link = post.querySelector('h3 a');
+    var date = post.querySelector('.meta span');
+
+    var item = document.createElement('a');
+    item.className = 'side-item';
+    item.href = '#' + post.id;
+
+    var imgEl = document.createElement('img');
+    imgEl.src = img ? img.getAttribute('src') : '';
+    imgEl.alt = '';
+
+    var textWrap = document.createElement('div');
+    var titleEl = document.createElement('div');
+    titleEl.className = 'title';
+    titleEl.textContent = link ? link.textContent : '';
+    var metaEl = document.createElement('div');
+    metaEl.className = 'meta';
+    var metaSpan = document.createElement('span');
+    metaSpan.textContent = date ? date.textContent : '';
+    metaEl.appendChild(metaSpan);
+
+    textWrap.appendChild(titleEl);
+    textWrap.appendChild(metaEl);
+    item.appendChild(imgEl);
+    item.appendChild(textWrap);
+    sideContainer.appendChild(item);
+  });
+})();
 </script>
 
 </body>
