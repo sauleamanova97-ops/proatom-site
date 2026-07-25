@@ -12,7 +12,7 @@
   --paper:     #FFFFFF;   /* page background — white */
   --paper-2:   #F1F2F4;   /* card / section background, one step off white */
   --ink:       #212B36;   /* body text */
-  --ink-soft:  #4B5563;   /* secondary body text */
+  --ink-soft:  #374151;   /* secondary body text — darkened for sharper contrast */
   --line:      #E3E5E9;   /* hairline borders/dividers */
   --white:     #FFFFFF;
 
