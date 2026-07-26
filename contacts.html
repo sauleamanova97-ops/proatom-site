@@ -32,9 +32,16 @@
       <a href="contacts.html" class="active">Контакты</a>
     </nav>
     <a class="tg-btn" href="https://t.me/nuclearkz" target="_blank" rel="noopener">Читать в Telegram →</a>
-    <button class="nav-toggle" aria-label="Меню">
+    <a class="lang-switch" href="en/contacts.html">EN</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Меню">
       <svg fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html">Новости</a>
+    <a href="contacts.html">Контакты</a>
+    <a href="en/contacts.html">English version</a>
+    <a href="https://t.me/nuclearkz" target="_blank" rel="noopener">Читать в Telegram →</a>
   </div>
 </header>
 
@@ -59,7 +66,7 @@
 
     <div class="contact-card">
       <div class="label">Почта редакции</div>
-      <div class="value" id="contact-email">saule.amanova.97@gmail.com</div>
+      <div class="value" id="contact-email">—</div>
       <div class="desc">Для пресс-релизов, предложений по материалам и партнёрства.</div>
     </div>
 
@@ -86,6 +93,12 @@
     <div class="copyright">© 2026 ProAtom.kz — новости атомной энергетики и геологоразведки урановых месторождений</div>
   </div>
 </footer>
+
+<script>
+document.getElementById('nav-toggle').addEventListener('click', function(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+</script>
 
 </body>
 </html>
