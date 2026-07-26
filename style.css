@@ -490,11 +490,12 @@ footer .copyright{
 @media (max-width: 880px){
   nav.main-nav{ display:none; }
   .nav-toggle{ display:block; }
-  .tg-btn{ display:none; }
-  .lang-switch{ margin-right:0; }
-  .header-inner{ padding-top:14px; padding-bottom:14px; }
-  .brand img{ height:36px; }
-  .brand .name{ font-size:19px; }
+  .lang-switch{ display:none; }
+  .header-inner{ padding-top:14px; padding-bottom:14px; gap:10px; }
+  .brand{ gap:0; min-width:0; }
+  .brand img{ display:none; }
+  .brand .name{ font-size:17px; white-space:nowrap; }
+  .tg-btn{ font-size:12.5px; padding:8px 12px; flex-shrink:0; }
   .hero-grid{ grid-template-columns: 1fr; }
   .post{ grid-template-columns: 1fr; }
   .post-media{ aspect-ratio: 16/9; }
