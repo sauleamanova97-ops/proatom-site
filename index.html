@@ -59,7 +59,6 @@
         <div class="overlay">
           <div class="eyebrow" id="hero-eyebrow"></div>
           <h1 id="hero-title"></h1>
-          <p class="excerpt" id="hero-excerpt"></p>
           <div class="meta"><span id="hero-date"></span></div>
         </div>
       </a>
@@ -81,6 +80,22 @@
 
       <div class="feed" id="feed">
         <!-- NEW-POSTS-INSERT-HERE -->
+
+        <article class="post" id="post-272">
+          <div class="post-media"><img src="https://cdn4.telesco.pe/file/UbjmEE1j-od1sIm2GVXfi_OJ5E_6DJYoDvbb6SrxFygqHlEHw2XrskBrZI6zjJnmmo57oB7VPA6YHkP_I0IoEnn40XQx2GS9vJNFbcukbIcnAwWA4QizJYOMmDTStNe4OWwNY-RH4uKImPn8bwLk1aIvuVRwAC5Or_LU8C8fhIkZ_1Jjl1yv2QPBv5G0RHINkbDrX2h5eTcHFH2Lj-e_PYNk_9RIwLC7oxJZNVGOZxnrs8K1I5o0Yf6y2whCdpU1c2zYDhfjGrcyWZJSov4qxN0NSAALnLbhtFccBmJD2yPm44giWnfOZAa9W1BbYfhOdja_E_bnZfuh88wOKzlbXA.jpg" alt=""></div>
+          <div class="post-body">
+            <div class="post-tags"><span class="post-tag">Турция</span><span class="post-tag">АЭС</span></div>
+            <h3><a href="#post-272">На блоке 2 АЭС Аккую в Турции завершилось строительство насосных установок системы водоснабжения</a></h3>
+            <p class="post-excerpt">Насосы — самые большие установки на станции, их компоненты достигают высоты пятиэтажного здания.</p>
+            <p class="post-full">Их нижние секции расположены на глубине 21 метр под землёй, а электродвигатели мощностью 6500 кВт установлены на глубине пять метров, что помогает защитить оборудование от внешних опасностей, таких как наводнения и цунами.
+
+После запуска блока 2 четыре насоса будут циркулировать до 260 000 кубометров морской воды в час — эквивалент примерно 100 бассейнам олимпийского размера.
+
+Источник: Росатом</p>
+            <div class="meta"><span>26 июля 2026</span><span class="dot">·</span><span class="views-count" data-post="post-272"></span></div>
+            <button class="read-more" data-target="post-272">Читать полностью →</button>
+          </div>
+        </article>
 
         <article class="post" id="post-270">
           <div class="post-media"><img src="https://cdn4.telesco.pe/file/NRLQqgKhq98jMgsj0_A9umvZPKcX3weGW8ShHbSS7GWsoi0VjZ0cYzmTEg891gcNTV4Io-LQSp1HY4JzCJB8mxHQkggDrkb8AA-XCt5Uu_sJJNVsVp2voSZa3gOfshenev14Wl1DPNPq67fbQQ2O2AarO1qvwJuz0LAEA9mchbQzXy_s76raI2zVrRf5rr30A4XVwFJ9VIut2XdaWsNyafiGnxpii1WoY9UA_WW1zXx6q3X5mXrzDc2ZuEh_HRJSnnzJf_TTFl--5eDlgVYFPjasAAeKKwbSs6OX467ii9z1ZlBAhcEvUXMzxr98vYtKB8c1H7fQWkqtcyzeOmlNUQ.jpg" alt="Касым-Жомарт Токаев"></div>
@@ -212,7 +227,6 @@ document.addEventListener('click', function(e){
   document.getElementById('hero-eyebrow').textContent = topTag ? topTag.textContent : 'Новости';
   document.getElementById('hero-title').textContent = topLink ? topLink.textContent : '';
   document.getElementById('hero-card').setAttribute('href', '#' + top.id);
-  document.getElementById('hero-excerpt').textContent = topExcerpt ? topExcerpt.textContent : '';
   document.getElementById('hero-date').textContent = topDate ? topDate.textContent : '';
   document.getElementById('hero-section').style.display = '';
 
@@ -246,6 +260,8 @@ document.addEventListener('click', function(e){
     item.appendChild(textWrap);
     sideContainer.appendChild(item);
   });
+})();
+
 // Счётчик просмотров (GoatCounter) — записывает просмотр, когда новость появляется на экране,
 // и показывает число рядом с датой. Чтобы включить: впиши свой site code вместо 'YOURCODE' ниже.
 (function(){
