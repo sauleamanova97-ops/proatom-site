@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Панель управления — ProAtom.kz</title>
+<link rel="icon" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2A55; --navy-2:#123769; --amber:#E8A324; --amber-dim:#C98A17;
+  --steel:#5C7A94; --paper:#FFFFFF; --paper-2:#F1F2F4; --ink:#212B36; --ink-soft:#374151;
+  --line:#E3E5E9; --radius:6px;
+}
+*{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper-2); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.5; }
+.wrap{ max-width:920px; margin:0 auto; padding:0 20px; }
+header{ background:var(--navy); color:#fff; padding:20px 0; }
+header .wrap{ display:flex; align-items:center; gap:12px; }
+header img{ height:34px; }
+header h1{ font-family:'Fraunces',serif; font-size:19px; margin:0; font-weight:600; }
+header .kz{ color:var(--amber); }
+main{ padding:28px 0 80px; }
+.card{ background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); padding:22px; margin-bottom:20px; }
+.card h2{ font-family:'Fraunces',serif; font-size:18px; color:var(--navy); margin:0 0 14px; }
+label{ display:block; font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--steel); margin:14px 0 6px; }
+label:first-child{ margin-top:0; }
+input[type=text], input[type=password], input[type=date], textarea, select{
+  width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:4px;
+  font-family:'Inter',sans-serif; font-size:14.5px; color:var(--ink); background:#fff;
+}
+textarea{ resize:vertical; font-family:'Inter',sans-serif; }
+input[type=file]{ margin-top:2px; }
+.row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:#fff;
+  border:0; padding:11px 20px; border-radius:4px; font-weight:600; font-size:14px; cursor:pointer;
+}
+.btn:hover{ background:var(--navy-2); }
+.btn.secondary{ background:var(--paper-2); color:var(--ink); border:1px solid var(--line); }
+.btn.secondary:hover{ background:var(--line); }
+.btn.danger{ background:#fff; color:#B3261E; border:1px solid #E7B4AF; }
+.btn.danger:hover{ background:#FBEAE9; }
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+.tabs{ display:flex; gap:6px; margin-bottom:20px; }
+.tab-btn{
+  background:none; border:1px solid var(--line); padding:9px 16px; border-radius:4px;
+  font-weight:600; font-size:14px; color:var(--steel); cursor:pointer;
+}
+.tab-btn.active{ background:var(--navy); color:#fff; border-color:var(--navy); }
+.hidden{ display:none !important; }
+.post-row{
+  display:flex; gap:14px; align-items:center; padding:12px 0; border-bottom:1px solid var(--line);
+}
+.post-row:last-child{ border-bottom:0; }
+.post-row img{ width:64px; height:48px; object-fit:cover; border-radius:4px; background:var(--paper-2); flex-shrink:0; }
+.post-row .info{ flex:1; min-width:0; }
+.post-row .title{ font-weight:600; font-size:14.5px; color:var(--navy); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.post-row .date{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--steel); margin-top:2px; }
+.post-row .actions{ display:flex; gap:8px; flex-shrink:0; }
+.post-row .actions button{ font-size:12.5px; padding:7px 12px; }
+.status{ font-size:13.5px; padding:10px 14px; border-radius:4px; margin-bottom:16px; }
+.status.ok{ background:#EAF6EC; color:#1E7A34; }
+.status.err{ background:#FBEAE9; color:#B3261E; }
+.status.info{ background:#EAF1FB; color:#1D4E89; }
+.help{ font-size:12.5px; color:var(--steel); margin-top:4px; }
+.spinner{ display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="assets/logo.png" alt="">
+    <h1>ProAtom<span class="kz">.kz</span> — панель управления</h1>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div id="status-box"></div>
+
+  <!-- ЭКРАН ВХОДА -->
+  <div id="login-screen" class="card">
+    <h2>Вход</h2>
+    <label for="gh-token">Персональный токен GitHub (GH_PAT)</label>
+    <input type="password" id="gh-token" placeholder="ghp_...">
+    <div class="help">Тот же токен, что мы создавали для секрета GH_PAT. Если потерян — создай новый на github.com/settings/tokens (scope: repo).</div>
+
+    <label for="gh-repo">Репозиторий</label>
+    <input type="text" id="gh-repo" value="sauleamanova97-ops/proatom-site">
+
+    <div style="margin-top:16px; display:flex; align-items:center; gap:8px;">
+      <input type="checkbox" id="remember" style="width:auto;">
+      <label for="remember" style="margin:0; text-transform:none; font-family:'Inter',sans-serif; font-size:13.5px; color:var(--ink-soft);">Запомнить на этом устройстве</label>
+    </div>
+
+    <div style="margin-top:18px;">
+      <button class="btn" id="login-btn">Войти</button>
+    </div>
+  </div>
+
+  <!-- ОСНОВНАЯ ПАНЕЛЬ -->
+  <div id="panel" class="hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="news">Новости</button>
+        <button class="tab-btn" data-tab="contacts">Контакты</button>
+      </div>
+      <button class="btn secondary" id="logout-btn" style="font-size:13px;">Выйти</button>
+    </div>
+
+    <!-- ВКЛАДКА: НОВОСТИ -->
+    <div id="tab-news">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <h2 style="margin:0;">Лента новостей</h2>
+          <button class="btn" id="add-post-btn">+ Добавить новость</button>
+        </div>
+        <div id="post-list"><p class="help">Загрузка…</p></div>
+      </div>
+    </div>
+
+    <!-- ФОРМА НОВОСТИ (скрыта по умолчанию) -->
+    <div id="post-form-card" class="card hidden">
+      <h2 id="post-form-title">Новая новость</h2>
+      <input type="hidden" id="post-id">
+
+      <label>Заголовок</label>
+      <textarea id="post-title" rows="2"></textarea>
+
+      <div class="row2">
+        <div>
+          <label>Тег 1</label>
+          <input type="text" id="post-tag1" placeholder="Казахстан">
+        </div>
+        <div>
+          <label>Тег 2</label>
+          <input type="text" id="post-tag2" placeholder="АЭС">
+        </div>
+      </div>
+
+      <label>Дата (как показывать на сайте)</label>
+      <input type="text" id="post-date" placeholder="26 июля 2026">
+
+      <label>Короткий анонс (видно сразу, до нажатия «Читать полностью»)</label>
+      <textarea id="post-excerpt" rows="2"></textarea>
+
+      <label>Полный текст</label>
+      <textarea id="post-full" rows="8"></textarea>
+
+      <label>Фото</label>
+      <input type="file" id="post-image" accept="image/*">
+      <div class="help" id="post-image-current"></div>
+
+      <div style="margin-top:20px; display:flex; gap:10px;">
+        <button class="btn" id="save-post-btn">Сохранить</button>
+        <button class="btn secondary" id="cancel-post-btn">Отмена</button>
+      </div>
+    </div>
+
+    <!-- ВКЛАДКА: КОНТАКТЫ -->
+    <div id="tab-contacts" class="hidden">
+      <div class="card">
+        <h2>Страница контактов</h2>
+
+        <label>Telegram (username без @)</label>
+        <input type="text" id="c-telegram" placeholder="nuclearkz">
+
+        <label>Почта редакции</label>
+        <input type="text" id="c-email" placeholder="info@proatom.kz">
+
+        <label>Адрес</label>
+        <input type="text" id="c-address" placeholder="Казахстан, город Астана">
+
+        <label>Текст «О проекте»</label>
+        <textarea id="c-about" rows="4"></textarea>
+
+        <div style="margin-top:20px;">
+          <button class="btn" id="save-contacts-btn">Сохранить</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const REPO_KEY = 'proatom_admin_repo';
+const TOKEN_KEY = 'proatom_admin_token';
+let TOKEN = '';
+let REPO = '';
+const MARKER = '<!-- NEW-POSTS-INSERT-HERE -->';
+
+function showStatus(msg, type){
+  const box = document.getElementById('status-box');
+  box.innerHTML = '<div class="status ' + (type||'info') + '">' + msg + '</div>';
+  if (type === 'ok') setTimeout(function(){ box.innerHTML = ''; }, 4000);
+}
+function clearStatus(){ document.getElementById('status-box').innerHTML = ''; }
+
+function ghHeaders(){
+  return {
+    'Authorization': 'token ' + TOKEN,
+    'Accept': 'application/vnd.github+json'
+  };
+}
+
+async function ghGetFile(path){
+  const res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, { headers: ghHeaders() });
+  if (!res.ok) throw new Error('Не удалось загрузить ' + path + ' (код ' + res.status + ')');
+  const data = await res.json();
+  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+  return { content: content, sha: data.sha };
+}
+
+async function ghPutFile(path, content, sha, message){
+  const body = {
+    message: message,
+    content: btoa(unescape(encodeURIComponent(content))),
+    branch: 'main'
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+    method: 'PUT',
+    headers: Object.assign({'Content-Type':'application/json'}, ghHeaders()),
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(function(){ return {}; });
+    throw new Error('Ошибка сохранения ' + path + ': ' + (err.message || res.status));
+  }
+  return res.json();
+}
+
+async function ghPutBinaryFile(path, base64, message){
+  const res = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+    method: 'PUT',
+    headers: Object.assign({'Content-Type':'application/json'}, ghHeaders()),
+    body: JSON.stringify({ message: message, content: base64, branch: 'main' })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(function(){ return {}; });
+    throw new Error('Ошибка загрузки фото: ' + (err.message || res.status));
+  }
+  return res.json();
+}
+
+function fileToBase64(file){
+  return new Promise(function(resolve, reject){
+    const reader = new FileReader();
+    reader.onload = function(){ resolve(reader.result.split(',')[1]); };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ---------- Разбор index.html на отдельные новости ----------
+function parsePosts(html){
+  const posts = [];
+  const re = /<article class="post" id="([^"]+)">([\s\S]*?)<\/article>/g;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const id = m[1];
+    const block = m[2];
+    const img = (block.match(/<div class="post-media"><img src="([^"]*)"/) || [])[1] || '';
+    const tags = [];
+    const tagRe = /<span class="post-tag">([^<]*)<\/span>/g;
+    let tm;
+    while ((tm = tagRe.exec(block)) !== null) tags.push(tm[1]);
+    const title = (block.match(/<h3><a href="[^"]*">([\s\S]*?)<\/a><\/h3>/) || [])[1] || '';
+    const excerpt = (block.match(/<p class="post-excerpt">([\s\S]*?)<\/p>/) || [])[1] || '';
+    const full = (block.match(/<p class="post-full">([\s\S]*?)<\/p>/) || [])[1] || '';
+    const date = (block.match(/<div class="meta"><span>([^<]*)<\/span>/) || [])[1] || '';
+    posts.push({ id: id, img: img, tags: tags, title: title, excerpt: excerpt, full: full, date: date });
+  }
+  return posts;
+}
+
+function buildArticleHtml(post){
+  const tags = [post.tag1, post.tag2].filter(Boolean)
+    .map(function(t){ return '<span class="post-tag">' + escapeHtml(t) + '</span>'; }).join('');
+  return '\n        <article class="post" id="' + post.id + '">\n' +
+    '          <div class="post-media"><img src="' + post.img + '" alt=""></div>\n' +
+    '          <div class="post-body">\n' +
+    '            <div class="post-tags">' + tags + '</div>\n' +
+    '            <h3><a href="#' + post.id + '">' + escapeHtml(post.title) + '</a></h3>\n' +
+    '            <p class="post-excerpt">' + escapeHtml(post.excerpt) + '</p>\n' +
+    '            <p class="post-full">' + escapeHtml(post.full) + '</p>\n' +
+    '            <div class="meta"><span>' + escapeHtml(post.date) + '</span><span class="dot">·</span><span class="views-count" data-post="' + post.id + '"></span></div>\n' +
+    '            <button class="read-more" data-target="' + post.id + '">Читать полностью →</button>\n' +
+    '          </div>\n' +
+    '        </article>\n';
+}
+
+// ---------- Загрузка и отображение списка новостей ----------
+let currentIndexHtml = '';
+let currentIndexSha = '';
+
+async function loadPosts(){
+  document.getElementById('post-list').innerHTML = '<p class="help">Загрузка…</p>';
+  try {
+    const file = await ghGetFile('index.html');
+    currentIndexHtml = file.content;
+    currentIndexSha = file.sha;
+    const posts = parsePosts(currentIndexHtml);
+    renderPostList(posts);
+  } catch (e) {
+    document.getElementById('post-list').innerHTML = '';
+    showStatus(e.message, 'err');
+  }
+}
+
+function renderPostList(posts){
+  const el = document.getElementById('post-list');
+  if (posts.length === 0) {
+    el.innerHTML = '<p class="help">Новостей пока нет.</p>';
+    return;
+  }
+  el.innerHTML = posts.map(function(p){
+    return '<div class="post-row">' +
+      '<img src="' + p.img + '" alt="">' +
+      '<div class="info"><div class="title">' + escapeHtml(p.title) + '</div><div class="date">' + escapeHtml(p.date) + '</div></div>' +
+      '<div class="actions">' +
+      '<button class="btn secondary" data-edit="' + p.id + '">Править</button>' +
+      '<button class="btn danger" data-delete="' + p.id + '">Удалить</button>' +
+      '</div></div>';
+  }).join('');
+
+  el.querySelectorAll('[data-edit]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const id = btn.getAttribute('data-edit');
+      const post = posts.find(function(p){ return p.id === id; });
+      openPostForm(post);
+    });
+  });
+  el.querySelectorAll('[data-delete]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const id = btn.getAttribute('data-delete');
+      if (confirm('Удалить эту новость? Действие необратимо.')) deletePost(id);
+    });
+  });
+}
+
+function openPostForm(post){
+  document.getElementById('post-form-card').classList.remove('hidden');
+  document.getElementById('add-post-btn').classList.add('hidden');
+  document.getElementById('post-image').value = '';
+
+  if (post) {
+    document.getElementById('post-form-title').textContent = 'Редактировать новость';
+    document.getElementById('post-id').value = post.id;
+    document.getElementById('post-title').value = post.title;
+    document.getElementById('post-tag1').value = post.tags[0] || '';
+    document.getElementById('post-tag2').value = post.tags[1] || '';
+    document.getElementById('post-date').value = post.date;
+    document.getElementById('post-excerpt').value = post.excerpt;
+    document.getElementById('post-full').value = post.full;
+    document.getElementById('post-image-current').textContent = 'Текущее фото: ' + post.img + ' (оставь поле пустым, чтобы не менять)';
+    document.getElementById('post-form-card').dataset.existingImg = post.img;
+  } else {
+    document.getElementById('post-form-title').textContent = 'Новая новость';
+    document.getElementById('post-id').value = '';
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-tag1').value = '';
+    document.getElementById('post-tag2').value = '';
+    var now = new Date();
+    var months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+    document.getElementById('post-date').value = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+    document.getElementById('post-excerpt').value = '';
+    document.getElementById('post-full').value = '';
+    document.getElementById('post-image-current').textContent = '';
+    document.getElementById('post-form-card').dataset.existingImg = '';
+  }
+  document.getElementById('post-form-card').scrollIntoView({behavior:'smooth'});
+}
+
+function closePostForm(){
+  document.getElementById('post-form-card').classList.add('hidden');
+  document.getElementById('add-post-btn').classList.remove('hidden');
+}
+
+async function savePost(){
+  const btn = document.getElementById('save-post-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Сохраняю…';
+  clearStatus();
+  try {
+    let id = document.getElementById('post-id').value;
+    const isNew = !id;
+    if (isNew) id = 'post-' + Date.now();
+
+    let imgPath = document.getElementById('post-form-card').dataset.existingImg || '';
+    const fileInput = document.getElementById('post-image');
+    if (fileInput.files && fileInput.files[0]) {
+      const file = fileInput.files[0];
+      const base64 = await fileToBase64(file);
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const filename = 'assets/admin-' + Date.now() + '.' + ext;
+      await ghPutBinaryFile(filename, base64, 'Загрузка фото через панель управления');
+      imgPath = filename;
+    }
+
+    const post = {
+      id: id,
+      img: imgPath,
+      tag1: document.getElementById('post-tag1').value.trim(),
+      tag2: document.getElementById('post-tag2').value.trim(),
+      title: document.getElementById('post-title').value.trim(),
+      excerpt: document.getElementById('post-excerpt').value.trim(),
+      full: document.getElementById('post-full').value.trim(),
+      date: document.getElementById('post-date').value.trim()
+    };
+
+    const fresh = await ghGetFile('index.html');
+    let html = fresh.content;
+    const articleHtml = buildArticleHtml(post);
+
+    const existingRe = new RegExp('<article class="post" id="' + id + '">[\\s\\S]*?<\\/article>\\n?');
+    if (existingRe.test(html)) {
+      html = html.replace(existingRe, articleHtml.trim() + '\n');
+    } else {
+      html = html.replace(MARKER, MARKER + articleHtml);
+    }
+
+    await ghPutFile('index.html', html, fresh.sha, (isNew ? 'Добавлена новость' : 'Отредактирована новость') + ' (панель управления)');
+    showStatus('Сохранено. Сайт обновится в течение минуты.', 'ok');
+    closePostForm();
+    loadPosts();
+  } catch (e) {
+    showStatus(e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Сохранить';
+  }
+}
+
+async function deletePost(id){
+  clearStatus();
+  showStatus('Удаляю…', 'info');
+  try {
+    const fresh = await ghGetFile('index.html');
+    let html = fresh.content;
+    const existingRe = new RegExp('<article class="post" id="' + id + '">[\\s\\S]*?<\\/article>\\n?');
+    html = html.replace(existingRe, '');
+    await ghPutFile('index.html', html, fresh.sha, 'Удалена новость (панель управления)');
+    showStatus('Новость удалена.', 'ok');
+    loadPosts();
+  } catch (e) {
+    showStatus(e.message, 'err');
+  }
+}
+
+// ---------- Контакты ----------
+async function loadContacts(){
+  try {
+    const file = await ghGetFile('contacts.html');
+    const html = file.content;
+    const tg = (html.match(/id="contact-telegram" href="https:\/\/t\.me\/([^"]*)"/) || [])[1] || '';
+    const email = (html.match(/id="contact-email">([^<]*)<\/div>/) || [])[1] || '';
+    const address = (html.match(/id="contact-address">([^<]*)<\/div>/) || [])[1] || '';
+    const about = (html.match(/id="contact-about">([\s\S]*?)<\/p>/) || [])[1] || '';
+    document.getElementById('c-telegram').value = tg;
+    document.getElementById('c-email').value = email === '—' ? '' : email;
+    document.getElementById('c-address').value = address;
+    document.getElementById('c-about').value = about.trim();
+  } catch (e) {
+    showStatus(e.message, 'err');
+  }
+}
+
+async function saveContacts(){
+  const btn = document.getElementById('save-contacts-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Сохраняю…';
+  clearStatus();
+  try {
+    const fresh = await ghGetFile('contacts.html');
+    let html = fresh.content;
+
+    const tg = document.getElementById('c-telegram').value.trim().replace(/^@/, '');
+    const email = document.getElementById('c-email').value.trim() || '—';
+    const address = document.getElementById('c-address').value.trim();
+    const about = document.getElementById('c-about').value.trim();
+
+    html = html.replace(/id="contact-telegram" href="https:\/\/t\.me\/[^"]*"([^>]*)>[^<]*</,
+      'id="contact-telegram" href="https://t.me/' + tg + '"$1>@' + tg + '<');
+    html = html.replace(/id="contact-email">[^<]*</, 'id="contact-email">' + escapeHtml(email) + '<');
+    html = html.replace(/id="contact-address">[^<]*</, 'id="contact-address">' + escapeHtml(address) + '<');
+    html = html.replace(/id="contact-about">[\s\S]*?<\/p>/, 'id="contact-about">' + escapeHtml(about) + '</p>');
+
+    await ghPutFile('contacts.html', html, fresh.sha, 'Обновлена страница контактов (панель управления)');
+    showStatus('Сохранено. Сайт обновится в течение минуты.', 'ok');
+  } catch (e) {
+    showStatus(e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Сохранить';
+  }
+}
+
+// ---------- Вход / выход ----------
+function tryAutoLogin(){
+  const savedToken = localStorage.getItem(TOKEN_KEY);
+  const savedRepo = localStorage.getItem(REPO_KEY);
+  if (savedToken && savedRepo) {
+    TOKEN = savedToken; REPO = savedRepo;
+    enterPanel();
+  }
+}
+
+function enterPanel(){
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('panel').classList.remove('hidden');
+  loadPosts();
+  loadContacts();
+}
+
+document.getElementById('login-btn').addEventListener('click', function(){
+  const token = document.getElementById('gh-token').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  if (!token || !repo) { showStatus('Заполни токен и репозиторий.', 'err'); return; }
+  TOKEN = token; REPO = repo;
+  if (document.getElementById('remember').checked) {
+    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(REPO_KEY, repo);
+  }
+  clearStatus();
+  enterPanel();
+});
+
+document.getElementById('logout-btn').addEventListener('click', function(){
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(REPO_KEY);
+  TOKEN = ''; REPO = '';
+  document.getElementById('panel').classList.add('hidden');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.getElementById('gh-token').value = '';
+});
+
+document.getElementById('add-post-btn').addEventListener('click', function(){ openPostForm(null); });
+document.getElementById('cancel-post-btn').addEventListener('click', closePostForm);
+document.getElementById('save-post-btn').addEventListener('click', savePost);
+document.getElementById('save-contacts-btn').addEventListener('click', saveContacts);
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    const tab = btn.getAttribute('data-tab');
+    document.getElementById('tab-news').classList.toggle('hidden', tab !== 'news');
+    document.getElementById('post-form-card').classList.add('hidden');
+    document.getElementById('add-post-btn').classList.remove('hidden');
+    document.getElementById('tab-contacts').classList.toggle('hidden', tab !== 'contacts');
+  });
+});
+
+tryAutoLogin();
+</script>
+
+</body>
+</html>
