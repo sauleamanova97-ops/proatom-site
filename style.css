@@ -497,6 +497,9 @@ footer .copyright{
   .brand .name{ font-size:17px; white-space:nowrap; }
   .tg-btn{ font-size:12.5px; padding:8px 12px; flex-shrink:0; }
   .hero-grid{ grid-template-columns: 1fr; }
+  .hero-card{ min-height: 0; aspect-ratio: 4/3; }
+  .hero-card h1{ font-size: 21px; }
+  .hero-card .overlay{ padding: 20px 20px 22px; }
   .post{ grid-template-columns: 1fr; }
   .post-media{ aspect-ratio: 16/9; }
   .contact-grid{ grid-template-columns: 1fr; }
